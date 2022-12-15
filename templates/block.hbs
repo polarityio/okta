@@ -1,0 +1,43 @@
+{{#unless details.hits}}
+  <div>
+    No results were found.
+  </div>
+{{else}}
+  <div class="p-footnote">
+    Select the "JSON Source" tab to see all fields.
+  </div>
+{{/unless}}
+{{#each details.hits as |hit index|}}
+  <h1 class="p-title {{if (gt index 0) "mt-3"}}">{{fa-icon icon="robot" fixedWidth=true}} {{hit.rawHit._source.source}}</h1>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a {{action "changeTab" index "info"}} class="nav-link {{if (or (eq hit.__activeTab "info")(not hit.__activeTab)) "active"}}" href="#">Summary Info</a>
+    </li>
+    <li class="nav-item">
+      <a {{action "changeTab" index "json"}} class="nav-link {{if (eq hit.__activeTab "json") "active"}}" href="#">JSON Source</a>
+    </li>
+  </ul>
+  <div class="border-container">
+    <div class="scrollable-container">
+      {{#if (or (eq hit.__activeTab "info")(not hit.__activeTab))}}
+        {{#each hit.formattedHit as | data index|}}
+          {{#if (eq data.type "string")}}
+            <div>
+              <span class="p-key">{{humanize data.key}}:</span>
+              <span class="p-value>">{{data.value}}</span>
+            </div>
+          {{else if (eq data.type "tags")}}
+            <h1 class="p-title">{{humanize data.key}}</h1>
+            {{#each data.value as | tag |}}
+              <div class="tag mb-1">{{tag}}</div>
+            {{/each}}
+          {{/if}}
+        {{/each}}
+      {{/if}}
+      {{#if (eq hit.__activeTab "json")}}
+        <pre class="json-container">{{hit.rawResultAsJsonString}}</pre>
+      {{/if}}
+    </div>
+  </div>
+{{/each}}
+
