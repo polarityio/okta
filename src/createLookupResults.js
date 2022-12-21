@@ -3,11 +3,20 @@ const { size, map, get } = require("lodash/fp");
 const createLookupResults = (usersWithGroup) =>
   map((userWithGroup) => {
     const { Logger } = require("../integration");
-    Logger({ usersWithGroup }, "users with group", "trace");
+    Logger({ usersWithGroup }, "users with grouppppp", "trace");
 
+    /* If a 404 is returned an error will not be thrown,
+      "user": {
+        "errorCode": "E0000007",
+        "errorSummary": "Not found: Resource not found: asdf@gmail.com (User)",
+        "errorLink": "E0000007",
+        "errorId": "oaef7BDyVGuT6-QRfT1swia2A",
+        "errorCauses": []
+      }
+  } */
     const lookupResult = {
       entity: userWithGroup.entity,
-      data: size(usersWithGroup)
+      data: !size(get("user.errorSummary", userWithGroup))
         ? {
             summary: createSummaryTags(userWithGroup),
             details: userWithGroup

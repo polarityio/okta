@@ -5,7 +5,8 @@ const getUserWithGroup = async (options, entities) => {
   const { Logger } = require("../../integration");
 
   const searchedUsers = await searchUsers(options, entities);
-  Logger({ searchedUsers }, "search", "trace");
+  Logger({ searchedUsers }, "search2", "trace");
+
   const userGroups = await searchUserGroupById(options, searchedUsers);
   Logger({ userGroups }, "user groups", "trace");
 
@@ -15,6 +16,7 @@ const getUserWithGroup = async (options, entities) => {
   return userWithGroup;
 };
 
+asdasd
 const searchUsers = async (options, entities) => {
   const { Logger } = require("../../integration");
 

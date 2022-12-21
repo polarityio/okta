@@ -9,11 +9,13 @@ const requestsInParallel = async (
   responseGetPath = "body",
   limit = 10
 ) => {
+  const { Logger } = require("../../integration");
   const unexecutedRequestFunctions = map(
     ({ entity, ...requestOptions }) =>
       async () => {
         const result = get(responseGetPath, await requestWithDefaults(requestOptions));
-        return entity ? { entity, result } : result;
+        Logger({ result }, "ressssssss1", "trace");
+        return result ? { entity, result } : result;
       },
     requestsOptions
   );

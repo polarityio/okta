@@ -45,8 +45,6 @@ const createRequestWithDefaults = () => {
       });
 
     return async (requestOptions) => {
-      const { Logger } = require("../../integration");
-
       const preRequestFunctionResults = await preRequestFunction(requestOptions);
 
       const _requestOptions = {
@@ -57,7 +55,8 @@ const createRequestWithDefaults = () => {
       let postRequestFunctionResults;
       try {
         const result = await _requestWithDefaults(_requestOptions);
-
+        const { Logger } = require("../../integration");
+        Logger({ result }, "dddd", "trace");
         checkForStatusError(result, _requestOptions);
 
         postRequestFunctionResults = await postRequestSuccessFunction(
@@ -71,7 +70,6 @@ const createRequestWithDefaults = () => {
         );
       }
 
-      Logger(postRequestFunctionResults, "aaaaaa", "trace");
       return postRequestFunctionResults;
     };
   };
@@ -88,9 +86,6 @@ const createRequestWithDefaults = () => {
       }
     };
 
-    const noInformationFound = !size(get("errorSummary", body));
-    if (noInformationFound) return;
-
     Logger(
       {
         MESSAGE: "Request Ran, Checking Status...",
@@ -101,9 +96,9 @@ const createRequestWithDefaults = () => {
       "trace"
     );
 
-    const roundedStatus = Math.round(statusCode / 100) * 100;
+    // const roundedStatus = Math.round(statusCode / 100) * 100;
     const statusCodeNotSuccessful =
-      !SUCCESSFUL_ROUNDED_REQUEST_STATUS_CODES.includes(roundedStatus);
+      !SUCCESSFUL_ROUNDED_REQUEST_STATUS_CODES.includes(statusCode);
 
     if (statusCodeNotSuccessful) {
       const requestError = Error("Request Error");
