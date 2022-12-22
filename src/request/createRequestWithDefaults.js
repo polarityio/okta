@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 const request = require("postman-request");
-const { get, identity, size } = require("lodash/fp");
+const { get, identity } = require("lodash/fp");
 
 const { ERROR_MESSAGES } = require("../../src/constants");
 const makeRequest = require("./makeRequest");
@@ -55,8 +55,7 @@ const createRequestWithDefaults = () => {
       let postRequestFunctionResults;
       try {
         const result = await _requestWithDefaults(_requestOptions);
-        const { Logger } = require("../../integration");
-        Logger({ result }, "dddd", "trace");
+
         checkForStatusError(result, _requestOptions);
 
         postRequestFunctionResults = await postRequestSuccessFunction(
@@ -96,7 +95,6 @@ const createRequestWithDefaults = () => {
       "trace"
     );
 
-    // const roundedStatus = Math.round(statusCode / 100) * 100;
     const statusCodeNotSuccessful =
       !SUCCESSFUL_ROUNDED_REQUEST_STATUS_CODES.includes(statusCode);
 

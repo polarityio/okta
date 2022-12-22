@@ -3,8 +3,7 @@ const { size, map, get } = require("lodash/fp");
 const createLookupResults = (usersWithGroup) =>
   map((userWithGroup) => {
     const { Logger } = require("../integration");
-    Logger({ usersWithGroup }, "users with grouppppp", "trace");
-
+    Logger({ usersWithGroup }, "users with group", "trace");
     /* If a 404 is returned an error will not be thrown,
       "user": {
         "errorCode": "E0000007",

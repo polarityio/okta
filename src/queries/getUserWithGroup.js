@@ -16,7 +16,6 @@ const getUserWithGroup = async (options, entities) => {
   return userWithGroup;
 };
 
-asdasd
 const searchUsers = async (options, entities) => {
   const { Logger } = require("../../integration");
 
