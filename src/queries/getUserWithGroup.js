@@ -2,16 +2,10 @@ const { map } = require("lodash/fp");
 const { requestsInParallel } = require("../request");
 
 const getUserWithGroup = async (options, entities) => {
-  const { Logger } = require("../../integration");
-
   const searchedUsers = await searchUsers(options, entities);
-  Logger({ searchedUsers }, "search2", "trace");
-
   const userGroups = await searchUserGroupById(options, searchedUsers);
-  Logger({ userGroups }, "user groups", "trace");
-
+  
   const userWithGroup = groupUserWithUserGroup(searchedUsers, userGroups);
-  Logger({ userWithGroup }, "results", "trace");
 
   return userWithGroup;
 };

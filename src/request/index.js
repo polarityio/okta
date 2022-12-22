@@ -14,7 +14,6 @@ const requestsInParallel = async (
     ({ entity, ...requestOptions }) =>
       async () => {
         const result = get(responseGetPath, await requestWithDefaults(requestOptions));
-        Logger({ result }, "ressssssss1", "trace");
         return result ? { entity, result } : result;
       },
     requestsOptions
