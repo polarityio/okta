@@ -1,0 +1,42 @@
+{
+  "name": "Okta",
+  "acronym": "OKTA",
+  "description": "This integration queries Okta for user information by email address.",
+  "entityTypes": [
+    "email"
+  ],
+  "styles": [
+    "./styles/style.less"
+  ],
+  "request": {
+    "cert": "",
+    "key": "",
+    "passphrase": "",
+    "ca": "",
+    "proxy": "",
+    "rejectUnauthorized": true
+  },
+  "logging": {
+    "level": "info"
+  },
+  "options": [
+    {
+      "key": "domain",
+      "name": "Okta Domain",
+      "description": "Your Okta Domain (do not include the scheme https://)",
+      "default": "",
+      "type": "text",
+      "userCanEdit": false,
+      "adminOnly": true
+    },
+    {
+      "key": "apiKey",
+      "name": "Okta",
+      "description": "Okta API key",
+      "default": "",
+      "type": "password",
+      "userCanEdit": false,
+      "adminOnly": true
+    }
+  ]
+}
