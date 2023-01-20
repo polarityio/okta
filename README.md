@@ -16,6 +16,14 @@ Your URL to access an Okta API instance.
 
 Your token issued by the authorization server (Okta).
 
+### Use Default Domains
+
+A comma delimited list of domains that will be searched when doing email lookups in Okta. If no domains are provided, all email addresses will be searched.
+
+## Default Domains
+
+Enter a comma delimited list of domains that will be searched when doing email lookups in Okta.
+
 ## Installation Instructions
 
 Installation instructions for integrations are provided on the [PolarityIO GitHub Page](https://polarityio.github.io/).
