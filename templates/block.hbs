@@ -47,8 +47,9 @@
       <div>
         <span class="p-key">Last Login: </span>
         <span class="p-value">{{moment-format
-            details.user.lastLogin
-            "YYYY-MM-DD HH:mm:ss UTC"
+            indicator.created_on
+            "MM/DD/YYYY HH:mm:ss"
+            timeZone=timezone
           }}</span>
       </div>
     {{/if}}
@@ -56,8 +57,9 @@
       <div>
         <span class="p-key">Activated: </span>
         <span class="p-value">{{moment-format
-            details.user.activated
-            "YYYY-MM-DD HH:mm:ss UTC"
+            indicator.created_on
+            "MM/DD/YYYY HH:mm:ss"
+            timeZone=timezone
           }}</span>
       </div>
     {{/if}}
@@ -65,8 +67,9 @@
       <div>
         <span class="p-key">Status Changed: </span>
         <span class="p-value">{{moment-format
-            details.user.statusChanged
-            "YYYY-MM-DD HH:mm:ss UTC"
+            indicator.created_on
+            "MM/DD/YYYY HH:mm:ss"
+            timeZone=timezone
           }}</span>
       </div>
     {{/if}}
@@ -74,12 +77,50 @@
       <div>
         <span class="p-key">Pass. Changed: </span>
         <span class="p-value">{{moment-format
-            details.user.passwordChanged
-            "YYYY-MM-DD HH:mm:ss UTC"
+            indicator.created_on
+            "MM/DD/YYYY HH:mm:ss"
+            timeZone=timezone
           }}</span>
       </div>
     {{/if}}
   {{/if}}
+  {{! block for credentials on user object  }}
+  {{#if details.user.credentials}}
+    <h1 class="p-title">{{fa-icon "layer-group" fixedWidth=true}} User Credentials: </h1>
+    {{#if details.user.credentials.provider.type}}
+      <div>
+        <span class="p-key">Provider Type: </span>
+        <span class="p-value">{{details.user.credentials.provider.type}}</span>
+      </div>
+    {{/if}}
+    {{#if details.user.credentials.provider.name}}
+      <div>
+        <span class="p-key">Provider Name: </span>
+        <span class="p-value">{{details.user.credentials.provider.name}}</span>
+      </div>
+      {{#each details.user.credentials.emails as |email|}}
+        {{#if email.value}}
+          <div>
+            <span class="p-key">Email: </span>
+            <span class="p-value">{{email.value}}</span>
+          </div>
+        {{/if}}
+        {{#if email.type}}
+          <div>
+            <span class="p-key">Email Type: </span>
+            <span class="p-value">{{email.type}}</span>
+          </div>
+        {{/if}}
+        {{#if email.status}}
+          <div>
+            <span class="p-key">Email Status: </span>
+            <span class="p-value">{{email.status}}</span>
+          </div>
+        {{/if}}
+      {{/each}}
+    {{/if}}
+  {{/if}}
+
   {{#if details.userGroup}}
     <h1 class="p-title">{{fa-icon "layer-group" fixedWidth=true}} User Group: </h1>
     {{#each details.userGroup as |group|}}
@@ -95,18 +136,21 @@
       {{#if group.created}}
         <div>
           <span class="p-key">Group Created: </span>
-          <span class="p-value">{{moment-format
-              group.created
-              "YYYY-MM-DD HH:mm:ss UTC"
-            }}</span>
+          <span class="p-value">{{{moment-format
+              indicator.created_on
+              "MM/DD/YYYY HH:mm:ss"
+              timeZone=timezone
+            }}}
+          </span>
         </div>
       {{/if}}
       {{#if group.lastMembershipUpdated}}
         <div>
           <span class="p-key">Last Membership Update: </span>
           <span class="p-value">{{moment-format
-              group.lastMembershipUpdated
-              "YYYY-MM-DD HH:mm:ss UTC"
+              indicator.created_on
+              "MM/DD/YYYY HH:mm:ss"
+              timeZone=timezone
             }}</span>
         </div>
       {{/if}}
@@ -114,8 +158,9 @@
         <div>
           <span class="p-key">Last Updated: </span>
           <span class="p-value">{{moment-format
-              group.lastUpdated
-              "YYYY-MM-DD HH:mm:ss UTC"
+              indicator.created_on
+              "MM/DD/YYYY HH:mm:ss"
+              timeZone=timezone
             }}</span>
         </div>
       {{/if}}

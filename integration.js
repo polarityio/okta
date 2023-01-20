@@ -1,53 +1,98 @@
-'use strict';
+"use strict";
+const { map, reduce } = require("lodash/fp");
 
-const getLookupResults = require('./src/getLookupResults');
-const {
-  splitOutIgnoredIps,
-  standardizeEntityTypes,
-  parseErrorToReadableJSON
-} = require('./src/dataTransformations');
-const { last, slice, concat } = require('lodash/fp');
+const { setLogger } = require("./src/logger");
+const { parseErrorToReadableJSON } = require("./src/errors");
+const { authenticatedPolarityRequest } = require("./src/polarity-request");
+const { createResultObject } = require("./src/create-result-object");
 
-let logger = console;
-const startup = (_logger) => {
-  logger = _logger;
+const { getUserWithGroup } = require("./src/get-user-with-group");
+
+let Logger = null;
+
+const startup = (logger) => {
+  Logger = logger;
+  setLogger(Logger);
 };
 
-const Logger = (...args) => {
-  const lastArg = last(args);
-  const lastArgIsLevel = ['trace', 'debug', 'info', 'warn', 'error', 'fatal'].includes(
-    lastArg
-  );
-  const loggingLevel = lastArgIsLevel ? lastArg : 'info';
-  const logArgs = lastArgIsLevel ? slice(0, -1, args) : args;
-  logger[loggingLevel](...logArgs);
-};
+/**
+ * @param entities
+ * @param options
+ * @param cb
+ * @returns {Promise<void>}
+ */
 
 const doLookup = async (entities, options, cb) => {
-  Logger({ entities }, 'Entities', 'debug');
   try {
-    Logger({ entities }, 'Entities', 'debug');
+    Logger.trace({ options }, "options");
 
-    const { entitiesPartition, ignoredIpLookupResults } = splitOutIgnoredIps(entities);
-    const entitiesWithCustomTypesSpecified = standardizeEntityTypes(entitiesPartition);
+    const searchDomains = options.useDefaultDomains
+      ? splitOutIgnoredDomains(options, entities)
+      : entities;
 
-    const lookupResults = concat(
-      await getLookupResults(entitiesWithCustomTypesSpecified, options),
-      ignoredIpLookupResults
-    );
+    authenticatedPolarityRequest.setRequestHeadersAndOptions({
+      ...options,
+      headers: {
+        Authorization: `SSWS ${options.apiToken}`
+      }
+    });
 
-    Logger({ lookupResults }, 'Lookup Results', 'trace');
+    const usersWithGroups = await getUserWithGroup(searchDomains);
+    Logger.trace({ usersWithGroups }, "Users with Groups");
+
+    const lookupResults = map((userWithGroup) => createResultObject(userWithGroup), usersWithGroups);
+    Logger.trace({ lookupResults }, "Lookup Results");
+
     cb(null, lookupResults);
   } catch (error) {
-    const err = parseErrorToReadableJSON(error);
-
-    Logger({ error, formattedError: err }, 'Get Lookup Results Failed', 'error');
-    cb({ detail: error.message || 'Lookup Failed', err });
+    const errorAsPojo = parseErrorToReadableJSON(error);
+    Logger.error({ error: errorAsPojo }, "Error in doLookup");
+    cb(error);
   }
+};
+
+const splitOutIgnoredDomains = (options, entities) => {
+  const defaultDomains = options.defaultDomain.split(",").map((domain) => domain.trim());
+  Logger.trace({ defaultDomains }, "Default Domains");
+
+  const results = reduce(
+    (acc, entity) => {
+      const domain = entity.value.split("@")[1];
+      Logger.trace({ domain }, "Domain");
+      if (defaultDomains.includes(domain)) {
+        acc.push(entity);
+      }
+      return acc;
+    },
+    [],
+    entities
+  );
+
+  Logger.trace({ results }, "Split Out Domains");
+  return results;
+};
+
+const validateOption = (errors, options, optionName, errMessage) => {
+  if (!(typeof options[optionName].value === "string" && options[optionName].value)) {
+    errors.push({
+      key: optionName,
+      message: errMessage
+    });
+  }
+};
+
+const validateOptions = (options, callback) => {
+  let errors = [];
+
+  validateOption(errors, options, "url", "You must provide an api url.");
+  validateOption(errors, options, "apiToken", "You must provide a valid access key.");
+
+  callback(null, errors);
 };
 
 module.exports = {
   startup,
   doLookup,
+  validateOptions,
   Logger
 };

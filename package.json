@@ -1,7 +1,7 @@
 {
   "main": "./integration.js",
   "name": "okta",
-  "version": "3.0.0-beta",
+  "version": "3.0.2-beta",
   "private": true,
   "license": "MIT",
   "author": "Polarity",
