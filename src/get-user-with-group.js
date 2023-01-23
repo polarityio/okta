@@ -16,8 +16,6 @@ const getUserWithGroup = async (entities) => {
     const userWithGroup = groupUserWithUserGroup(searchedUsers, userGroups);
     return userWithGroup;
   }
-
-  return [];
 };
 
 const searchUsers = async (entities) => {
@@ -35,6 +33,18 @@ const searchUsers = async (entities) => {
   const response = await authenticatedPolarityRequest.makeAuthenticatedRequest(
     requestOptions
   );
+
+  Logger.trace({ response }, "Response");
+
+  // check for Api errors
+  for (const user of response) {
+    if (!SUCCESS_CODES.includes(user.result.statusCode)) {
+      throw new ApiRequestError(`Unexpected status code ${user.result.statusCode}`, {
+        statusCode: user.result.statusCode,
+        requestOptions: requestOptions
+      });
+    }
+  }
 
   Logger.trace({ response }, "Response");
 
@@ -57,6 +67,15 @@ const searchUserGroupById = async (users) => {
   const response = await authenticatedPolarityRequest.makeAuthenticatedRequest(
     requestOptions
   );
+
+  for (const user of response) {
+    if (!SUCCESS_CODES.includes(user.result.statusCode)) {
+      throw new ApiRequestError(`Unexpected status code ${user.result.statusCode}`, {
+        statusCode: user.result.statusCode,
+        requestOptions: requestOptions
+      });
+    }
+  }
 
   return response;
 };

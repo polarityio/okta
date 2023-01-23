@@ -22,13 +22,13 @@ module.exports = {
     rejectUnauthorized: true
   },
   logging: {
-    level: "info" //trace, debug, info, warn, error, fatal
+    level: "trace" //trace, debug, info, warn, error, fatal
   },
   options: [
     {
       key: "url",
       name: "Okta URL",
-      description: "URL for Okta instance.",
+      description: "URL  for Okta instance.",
       default: "",
       type: "text",
       userCanEdit: true,

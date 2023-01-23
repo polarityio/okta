@@ -1,4 +1,5 @@
 "use strict";
+
 const { map, reduce } = require("lodash/fp");
 
 const { setLogger } = require("./src/logger");
