@@ -49,13 +49,6 @@ const searchUsers = async (entities) => {
     }
   }
 
-  /**
-   * returns
-   * {
-   *    entity,
-   *    body: null
-   * }
-   */
   return responses;
 };
 
@@ -72,20 +65,21 @@ const searchUserGroupById = async (users) => {
     users
   );
 
-  const response = await authenticatedPolarityRequest.makeAuthenticatedRequest(
+  const responses = await authenticatedPolarityRequest.makeAuthenticatedRequest(
     requestOptions
   );
 
-  for (const user of response) {
-    if (!SUCCESS_CODES.includes(user.result.statusCode)) {
-      throw new ApiRequestError(`Unexpected status code ${user.result.statusCode}`, {
-        statusCode: user.result.statusCode,
+  for (const response of responses) {
+    if (!SUCCESS_CODES.includes(response.result.statusCode)) {
+      throw new ApiRequestError(`Unexpected status code ${response.result.statusCode}`, {
+        statusCode: response.result.statusCode,
+        body: response.result.body,
         requestOptions: requestOptions
       });
     }
   }
 
-  return response;
+  return responses;
 };
 
 const groupUserWithUserGroup = (users, userGroups) => {
