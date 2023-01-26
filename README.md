@@ -2,7 +2,7 @@
 
 ![image](https://img.shields.io/badge/status-beta-green.svg)
 
-Okta is a customizable, secure, and drop-in solution to add authentication and authorization services to your applications
+Okta is a customizable, secure, and drop-in solution to add authentication and authorization services to your applications. The Polarity Okta integration allows you to search for Okta users by email address.
 
 To learn more about Okta, visit the [official website](https://www.okta.com/).
 
