@@ -1,7 +1,8 @@
 module.exports = {
   name: "Okta",
   acronym: "OKTA",
-  description: "",
+  description:
+    "Okta is a customizable, secure, and drop-in solution to add authentication and authorization services to your applications. The Polarity Okta integration allows you to search for Okta users by email address.",
   entityTypes: ["email"],
   styles: ["./styles/styles.less"],
   defaultColor: "light-blue",
@@ -22,13 +23,14 @@ module.exports = {
     rejectUnauthorized: true
   },
   logging: {
-    level: "trace" //trace, debug, info, warn, error, fatal
+    level: "info" //trace, debug, info, warn, error, fatal
   },
   options: [
     {
       key: "url",
       name: "Okta URL",
-      description: "URL for your Okta instance.  The URL should include the scheme (https://).",
+      description:
+        "URL for your Okta instance.  The URL should include the scheme (https://).",
       default: "",
       type: "text",
       userCanEdit: false,

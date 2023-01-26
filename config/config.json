@@ -1,13 +1,9 @@
 {
   "name": "Okta",
   "acronym": "OKTA",
-  "description": "This integration queries Okta for user information by email address.",
-  "entityTypes": [
-    "email"
-  ],
-  "styles": [
-    "./styles/style.less"
-  ],
+  "description": "Okta is a customizable, secure, and drop-in solution to add authentication and authorization services to your applications. The Polarity Okta integration allows you to search for Okta users by email address.",
+  "entityTypes": ["email"],
+  "styles": ["./styles/style.less"],
   "request": {
     "cert": "",
     "key": "",
@@ -35,6 +31,15 @@
       "description": "Okta API key",
       "default": "",
       "type": "password",
+      "userCanEdit": false,
+      "adminOnly": true
+    },
+    {
+      "key": "defaultDomains",
+      "name": "Default Domains to Search",
+      "description": "Enter a comma delimited list of domains that will be searched when doing email lookups in Okta. If left blank, all email addresses will be searched.",
+      "default": "",
+      "type": "text",
       "userCanEdit": false,
       "adminOnly": true
     }
