@@ -27,9 +27,14 @@ const doLookup = async (entities, options, cb) => {
   try {
     Logger.trace({ options }, "options");
 
-    const emailsToSearch = options.defaultDomains.trim().length > 0
-      ? splitOutIgnoredDomains(options, entities)
-      : entities;
+    const emailsToSearch =
+      options.defaultDomains.trim().length > 0
+        ? splitOutIgnoredDomains(options, entities)
+        : entities;
+
+    if (emailsToSearch.length === 0) {
+      return cb(null, []);
+    }
 
     authenticatedPolarityRequest.setRequestHeadersAndOptions({
       url: options.url,
@@ -41,8 +46,10 @@ const doLookup = async (entities, options, cb) => {
     const usersWithGroups = await getUserWithGroup(emailsToSearch);
     Logger.trace({ usersWithGroups }, "Users with Groups");
 
-
-    const lookupResults = map((userWithGroup) => createResultObject(userWithGroup), usersWithGroups);
+    const lookupResults = map(
+      (userWithGroup) => createResultObject(userWithGroup),
+      usersWithGroups
+    );
     Logger.trace({ lookupResults }, "Lookup Results");
 
     cb(null, lookupResults);
