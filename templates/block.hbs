@@ -86,7 +86,9 @@
 
 {{! block for credentials on user object  }}
 {{#if details.user.credentials}}
-  <h1 class="p-title">{{fa-icon icon="layer-group" fixedWidth=true}} User Credentials: </h1>
+  <h1 class="p-title">{{fa-icon icon="layer-group" fixedWidth=true}}
+    User Credentials:
+  </h1>
   {{#if details.user.credentials.provider.type}}
     <div>
       <span class="p-key">Provider Type: </span>
@@ -123,46 +125,57 @@
 
 {{#if details.userGroup}}
   <h1 class="p-title">{{fa-icon icon="layer-group" fixedWidth=true}} User Group: </h1>
-  {{#each details.userGroup as |group|}}
-    <div>
-      <span class="p-key">Profile Name: </span>
-      <span class="p-value">{{group.profile.name}}</span>
-    </div>
-    <div>
-      <span class="p-key">Description: </span>
-      <span class="p-value">{{group.profile.description}}</span>
-    </div>
+  <div class="scrollable-block">
+    <table>
+      <tbody>
+        {{#each details.userGroup as |group|}}
+          <div class="user-group">
+            <div>
+              <span class="p-key">Profile Name: </span>
+              <span class="p-value">{{group.profile.name}}</span>
+            </div>
 
-    {{#if group.created}}
-      <div>
-        <span class="p-key">Group Created: </span>
-        <span class="p-value">{{{moment-format
-            indicator.created_on
-            "MM/DD/YYYY HH:mm:ss"
-            timeZone=timezone
-          }}}
-        </span>
-      </div>
-    {{/if}}
-    {{#if group.lastMembershipUpdated}}
-      <div>
-        <span class="p-key">Last Membership Update: </span>
-        <span class="p-value">{{moment-format
-            indicator.created_on
-            "MM/DD/YYYY HH:mm:ss"
-            timeZone=timezone
-          }}</span>
-      </div>
-    {{/if}}
-    {{#if group.lastUpdated}}
-      <div>
-        <span class="p-key">Last Updated: </span>
-        <span class="p-value">{{moment-format
-            indicator.created_on
-            "MM/DD/YYYY HH:mm:ss"
-            timeZone=timezone
-          }}</span>
-      </div>
-    {{/if}}
-  {{/each}}
+            <div>
+              <span class="p-key">Description: </span>
+              <span class="p-value">{{group.profile.description}}</span>
+            </div>
+
+            {{#if group.created}}
+              <div>
+                <span class="p-key">Group Created: </span>
+                <span class="p-value">{{{moment-format
+                    indicator.created_on
+                    "MM/DD/YYYY HH:mm:ss"
+                    timeZone=timezone
+                  }}}
+                </span>
+              </div>
+            {{/if}}
+
+            {{#if group.lastMembershipUpdated}}
+              <div>
+                <span class="p-key">Last Membership Update: </span>
+                <span class="p-value">{{moment-format
+                    indicator.created_on
+                    "MM/DD/YYYY HH:mm:ss"
+                    timeZone=timezone
+                  }}</span>
+              </div>
+            {{/if}}
+
+            {{#if group.lastUpdated}}
+              <div>
+                <span class="p-key">Last Updated: </span>
+                <span class="p-value">{{moment-format
+                    indicator.created_on
+                    "MM/DD/YYYY HH:mm:ss"
+                    timeZone=timezone
+                  }}</span>
+              </div>
+            {{/if}}
+          </div>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
 {{/if}}
