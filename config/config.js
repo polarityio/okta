@@ -28,11 +28,11 @@ module.exports = {
     {
       key: "url",
       name: "Okta URL",
-      description: "URL  for Okta instance.",
+      description: "URL for your Okta instance.  The URL should include the scheme (https://).",
       default: "",
       type: "text",
-      userCanEdit: true,
-      adminOnly: false
+      userCanEdit: false,
+      adminOnly: true
     },
     {
       key: "apiToken",
@@ -40,25 +40,14 @@ module.exports = {
       description: "API Token required to authorize with Okta.",
       default: "",
       type: "password",
-      userCanEdit: true,
-      adminOnly: false
+      userCanEdit: false,
+      adminOnly: true
     },
     {
-      key: "useDefaultDomains",
-      name: "Use Default Domains",
+      key: "defaultDomains",
+      name: "Default Domains to Search",
       description:
-        "A comma delimited list of domains that will be searched when doing email lookups in Okta." +
-        "If no domains are provided, all email addresses will be searched.",
-      default: true,
-      type: "boolean",
-      userCanEdit: true,
-      adminOnly: false
-    },
-    {
-      key: "defaultDomain",
-      name: "Default Domain",
-      description:
-        "Enter a comma delimited list of domains that will be searched when doing email lookups in Okta.",
+        "Enter a comma delimited list of domains that will be searched when doing email lookups in Okta. If left blank, all email addresses will be searched.",
       default: "",
       type: "text",
       userCanEdit: false,

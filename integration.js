@@ -27,19 +27,20 @@ const doLookup = async (entities, options, cb) => {
   try {
     Logger.trace({ options }, "options");
 
-    const searchDomains = options.useDefaultDomains
+    const emailsToSearch = options.defaultDomains.trim().length > 0
       ? splitOutIgnoredDomains(options, entities)
       : entities;
 
     authenticatedPolarityRequest.setRequestHeadersAndOptions({
-      ...options,
+      url: options.url,
       headers: {
         Authorization: `SSWS ${options.apiToken}`
       }
     });
 
-    const usersWithGroups = await getUserWithGroup(searchDomains);
+    const usersWithGroups = await getUserWithGroup(emailsToSearch);
     Logger.trace({ usersWithGroups }, "Users with Groups");
+
 
     const lookupResults = map((userWithGroup) => createResultObject(userWithGroup), usersWithGroups);
     Logger.trace({ lookupResults }, "Lookup Results");
@@ -48,12 +49,12 @@ const doLookup = async (entities, options, cb) => {
   } catch (error) {
     const errorAsPojo = parseErrorToReadableJSON(error);
     Logger.error({ error: errorAsPojo }, "Error in doLookup");
-    cb(error);
+    cb(errorAsPojo);
   }
 };
 
 const splitOutIgnoredDomains = (options, entities) => {
-  const defaultDomains = options.defaultDomain.split(",").map((domain) => domain.trim());
+  const defaultDomains = options.defaultDomains.split(",").map((domain) => domain.trim());
   Logger.trace({ defaultDomains }, "Default Domains");
 
   const results = reduce(
@@ -69,7 +70,7 @@ const splitOutIgnoredDomains = (options, entities) => {
     entities
   );
 
-  Logger.trace({ results }, "Split Out Domains");
+  Logger.trace({ results }, "Emails to search");
   return results;
 };
 

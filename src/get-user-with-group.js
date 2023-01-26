@@ -30,25 +30,33 @@ const searchUsers = async (entities) => {
     entities
   );
 
-  const response = await authenticatedPolarityRequest.makeAuthenticatedRequest(
+  const responses = await authenticatedPolarityRequest.makeAuthenticatedRequest(
     requestOptions
   );
 
-  Logger.trace({ response }, "Response");
+  Logger.trace({ responses }, "Responses");
 
-  // check for Api errors
-  for (const user of response) {
-    if (!SUCCESS_CODES.includes(user.result.statusCode)) {
-      throw new ApiRequestError(`Unexpected status code ${user.result.statusCode}`, {
-        statusCode: user.result.statusCode,
+  // check for Unexpected status codes
+  // 200 means we found a user and had success
+  // 404 means no user.
+  for (const response of responses) {
+    if (!SUCCESS_CODES.includes(response.result.statusCode)) {
+      throw new ApiRequestError(`Unexpected status code ${response.result.statusCode}`, {
+        statusCode: response.result.statusCode,
+        body: response.result.body,
         requestOptions: requestOptions
       });
     }
   }
 
-  Logger.trace({ response }, "Response");
-
-  return response;
+  /**
+   * returns
+   * {
+   *    entity,
+   *    body: null
+   * }
+   */
+  return responses;
 };
 
 const searchUserGroupById = async (users) => {
