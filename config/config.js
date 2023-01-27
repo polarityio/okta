@@ -50,7 +50,7 @@ module.exports = {
       key: "defaultDomains",
       name: "Default Domains to Search",
       description:
-        "Enter a comma delimited list of domains that will be searched when doing email lookups in Okta. If left blank, all email addresses will be searched.",
+        "A comma delimited list of domains that will be searched when doing email lookups in Okta. If left blank, all email addresses will be searched.",
       default: "",
       type: "text",
       userCanEdit: false,

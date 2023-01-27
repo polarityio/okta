@@ -6,19 +6,21 @@ Okta is a customizable, secure, and drop-in solution to add authentication and a
 
 To learn more about Okta, visit the [official website](https://www.okta.com/).
 
+<img src="images/overlay.png" width="50%">
+
 ## Okta Integration Options
 
 ### Okta URL
 
-Your URL to access an Okta API instance.
+URL for your Okta instance.  The URL should include the scheme (https://).
 
 ### Okta API Token
 
-Your token issued by the authorization server (Okta).
+API Token required to authorize with Okta.
 
 ## Default Domains to Search
 
-Enter a comma delimited list of domains that will be searched when doing email lookups in Okta. If left blank, all email addresses will be searched.
+A comma delimited list of domains that will be searched when doing email lookups in Okta. If left blank, all email addresses will be searched.
 
 ## Installation Instructions
 
