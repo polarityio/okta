@@ -2,9 +2,13 @@
   "name": "Okta",
   "acronym": "OKTA",
   "description": "Okta is a customizable, secure, and drop-in solution to add authentication and authorization services to your applications. The Polarity Okta integration allows you to search for Okta users by email address.",
-  "entityTypes": ["email"],
+  "entityTypes": [
+    "email"
+  ],
   "onDemandOnly": true,
-  "styles": ["./styles/style.less"],
+  "styles": [
+    "./styles/style.less"
+  ],
   "request": {
     "cert": "",
     "key": "",
@@ -18,18 +22,18 @@
   },
   "options": [
     {
-      "key": "domain",
-      "name": "Okta Domain",
-      "description": "Your Okta Domain (do not include the scheme https://)",
+      "key": "url",
+      "name": "Okta URL",
+      "description": "URL for your Okta instance.  The URL should include the scheme (https://).",
       "default": "",
       "type": "text",
       "userCanEdit": false,
       "adminOnly": true
     },
     {
-      "key": "apiKey",
-      "name": "Okta",
-      "description": "Okta API key",
+      "key": "apiToken",
+      "name": "Okta API Token",
+      "description": "API Token required to authorize with Okta.",
       "default": "",
       "type": "password",
       "userCanEdit": false,
