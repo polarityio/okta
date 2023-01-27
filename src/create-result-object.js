@@ -1,3 +1,4 @@
+const { DateTime } = require("luxon");
 const { get } = require("lodash/fp");
 const { getLogger } = require("./logger");
 
@@ -33,10 +34,14 @@ const createSummaryTags = (resultsForThisEntity) => {
 
   Logger.trace({ resultsForThisEntity }, "Results for this entity");
 
-  resultsForThisEntity.user.result.body.credentials.emails.forEach((email) => {
-    tags.push(`Email: ${get("value", email)}`);
-    tags.push(`Status: ${get("status", email)}`);
-  });
+  tags.push(`Status: ${get("status", resultsForThisEntity.user.result.body)}`);
+  // if a user never logged in before then lastlogin will be null
+  const lastLogin = get("lastLogin", resultsForThisEntity.user.result.body);
+  tags.push(
+    `Last Login: ${
+      lastLogin === null ? "none" : DateTime.fromISO(lastLogin).toRelative()
+    }`
+  );
 
   return tags;
 };
