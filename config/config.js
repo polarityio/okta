@@ -2,7 +2,7 @@ module.exports = {
   name: "Okta",
   acronym: "OKTA",
   description:
-    "Okta is a customizable, secure, and drop-in solution to add authentication and authorization services to your applications. The Polarity Okta integration allows you to search for Okta users by email address.",
+    "Search Okta user accounts by email and display account and group information.",
   entityTypes: ["email"],
   styles: ["./styles/styles.less"],
   defaultColor: "light-blue",
