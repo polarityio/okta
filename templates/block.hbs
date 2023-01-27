@@ -5,7 +5,7 @@
   </div>
 {{/if}}
 {{#if details.user.profile}}
-  <h1 class="p-title">{{fa-icon icon="user" fixedWidth=true}} User Profile: </h1>
+  <h1 class="p-title">{{fa-icon icon="user" fixedWidth=true}} User Profile</h1>
   {{#if details.user.profile.firstName}}
     <div>
       <span class="p-key">First Name: </span>
@@ -86,8 +86,8 @@
 
 {{! block for credentials on user object  }}
 {{#if details.user.credentials}}
-  <h1 class="p-title">{{fa-icon icon="layer-group" fixedWidth=true}}
-    User Credentials:
+  <h1 class="p-title">{{fa-icon icon="key" fixedWidth=true}}
+    User Credentials
   </h1>
   {{#if details.user.credentials.provider.type}}
     <div>
@@ -124,25 +124,19 @@
 {{/if}}
 
 {{#if details.userGroup}}
-  <h1 class="p-title">{{fa-icon icon="layer-group" fixedWidth=true}} User Group: </h1>
+  <h1 class="p-title">{{fa-icon icon="layer-group" fixedWidth=true}} User Groups</h1>
   <div class="scrollable-block">
     <table>
       <tbody>
         {{#each details.userGroup as |group|}}
           <div class="user-group">
-            <div>
-              <span class="p-key">Profile Name: </span>
-              <span class="p-value">{{group.profile.name}}</span>
-            </div>
+            <div class="p-title mt-0">{{fa-icon icon="users" fixedWidth=true}} {{group.profile.name}}</div>
 
-            <div>
-              <span class="p-key">Description: </span>
-              <span class="p-value">{{group.profile.description}}</span>
-            </div>
+            <div class="p-block mb-1">{{group.profile.description}}</div>
 
             {{#if group.created}}
               <div>
-                <span class="p-key">Group Created: </span>
+                <span class="p-key">Created: </span>
                 <span class="p-value">{{{moment-format
                     indicator.created_on
                     "MM/DD/YYYY HH:mm:ss"
