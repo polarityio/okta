@@ -3,7 +3,7 @@ const { getLogger } = require("./logger");
 const { ApiRequestError } = require("./errors");
 const { authenticatedPolarityRequest } = require("./polarity-request");
 
-const { SUCCESS_CODES } = require("./constants");
+const SUCCESS_CODES = [200, 404];
 
 const getUserWithGroup = async (entities) => {
   const Logger = getLogger();
