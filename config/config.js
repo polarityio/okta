@@ -6,6 +6,7 @@ module.exports = {
   entityTypes: ["email"],
   styles: ["./styles/styles.less"],
   defaultColor: "light-blue",
+  onDemandOnly: true,
   block: {
     component: {
       file: "./components/block.js"

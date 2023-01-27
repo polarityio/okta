@@ -3,6 +3,7 @@
   "acronym": "OKTA",
   "description": "Okta is a customizable, secure, and drop-in solution to add authentication and authorization services to your applications. The Polarity Okta integration allows you to search for Okta users by email address.",
   "entityTypes": ["email"],
+  "onDemandOnly": true,
   "styles": ["./styles/style.less"],
   "request": {
     "cert": "",
