@@ -38,4 +38,4 @@ test.js
 .DS_Store
 
 #ignore .vscode
-.vscode
+.vscode/
