@@ -18,7 +18,7 @@ URL for your Okta instance.  The URL should include the scheme (https://).
 
 API Token required to authorize with Okta.
 
-## Default Domains to Search
+### Default Domains to Search
 
 A comma delimited list of domains that will be searched when doing email lookups in Okta. If left blank, all email addresses will be searched.
 
