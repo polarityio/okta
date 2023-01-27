@@ -35,7 +35,6 @@ const searchUsers = async (entities) => {
   );
 
   Logger.trace({ responses }, "Responses");
-
   // check for Unexpected status codes
   // 200 means we found a user and had success
   // 404 means no user.

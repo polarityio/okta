@@ -33,3 +33,9 @@ test-runner.js
 ~
 .polarity.conf
 test.js
+
+# Ignore DS_Store Files
+.DS_Store
+
+#ignore .vscode
+.vscode

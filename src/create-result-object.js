@@ -1,4 +1,4 @@
-const {  get } = require("lodash/fp");
+const { get } = require("lodash/fp");
 const { getLogger } = require("./logger");
 
 /**

@@ -50,8 +50,8 @@ const doLookup = async (entities, options, cb) => {
       (userWithGroup) => createResultObject(userWithGroup),
       usersWithGroups
     );
+    
     Logger.trace({ lookupResults }, "Lookup Results");
-
     cb(null, lookupResults);
   } catch (error) {
     const errorAsPojo = parseErrorToReadableJSON(error);
