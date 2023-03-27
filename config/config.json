@@ -1,4 +1,5 @@
 {
+  "polarityIntegrationUuid": "01b57da0-cce2-11ed-aeee-075d3490155d",
   "name": "Okta",
   "acronym": "OKTA",
   "description": "Search Okta user accounts by email and display account and group information.",
