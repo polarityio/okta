@@ -1,9 +1,10 @@
 {
   "name": "okta",
-  "version": "3.0.6-beta",
+  "version": "3.0.7-beta",
   "private": true,
   "license": "MIT",
   "author": "Polarity",
+  "main": "./integration.js",
   "dependencies": {
     "async": "^3.2.4",
     "lodash": "^4.17.21",
