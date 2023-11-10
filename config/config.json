@@ -8,7 +8,7 @@
   ],
   "onDemandOnly": true,
   "styles": [
-    "./styles/style.less"
+    "./styles/styles.less"
   ],
   "request": {
     "cert": "",
