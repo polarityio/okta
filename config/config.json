@@ -6,7 +6,18 @@
   "entityTypes": [
     "email"
   ],
+  "dataTypes": [
+    "email"
+  ],
   "onDemandOnly": true,
+  "block": {
+    "component": {
+      "file": "./components/block.js"
+    },
+    "template": {
+      "file": "./templates/block.hbs"
+    }
+  },
   "styles": [
     "./styles/styles.less"
   ],
