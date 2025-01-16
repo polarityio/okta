@@ -1,14 +1,14 @@
 {
   "name": "okta",
-  "version": "3.0.10",
+  "version": "3.0.11",
   "private": true,
   "license": "MIT",
   "author": "Polarity",
   "main": "./integration.js",
   "dependencies": {
-    "async": "^3.2.5",
+    "async": "^3.2.6",
     "lodash": "^4.17.21",
-    "postman-request": "^2.88.1-postman.33",
-    "luxon": "^3.4.3"
+    "postman-request": "^2.88.1-postman.40",
+    "luxon": "^3.5.0"
   }
 }
